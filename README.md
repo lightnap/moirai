@@ -1,2 +1,2 @@
-# moiriai
-A progress tracker with infinite recursion capabilities
+# moirai
+A progress tracker with infinite recursion capabilities.
