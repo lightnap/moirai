@@ -7,6 +7,11 @@
       cmake
       gnumake
       bashInteractiveFHS
-      cool-retro-term 
+      kdePackages.wayland # This contains the wayland protocols.
+      wayland-scanner
+      pkg-config
+      libxkbcommon
+      libffi
+      libGL # OpenGL.
     ];
 } 

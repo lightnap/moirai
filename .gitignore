@@ -2,3 +2,8 @@
 # Build products
 /build/
 /bin/
+
+
+# Dependencies
+/external/**
+!/external/CMakeLists.txt
