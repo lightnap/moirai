@@ -14,4 +14,9 @@
       libffi
       libGL # OpenGL.
     ];
+    # This makes it so that the dynamic linker can find the listed libraries.
+    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [
+        wayland
+	libxkbcommon
+    ]);
 } 
