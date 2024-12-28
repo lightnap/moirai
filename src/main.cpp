@@ -1,22 +1,16 @@
-#include <iostream>
+#include <cstdint>
 
 #include <raylib/src/raylib.h>
 
+#include "c_application.hpp"
+
 int main(void)
 {
-    std::cout << "[LIGHTSAYS ^. .^] HELLO WORLD \n";
+    moirai::CApplication main_application {};
+    moirai::set_app(&main_application);
 
-    InitWindow(800, 450, "my_first_window");
-    SetTargetFPS(60);
+    int32_t return_value {main_application.run()};
 
-    while (!WindowShouldClose())
-    {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("[LIGHTSAYS ^. .^] WELP, I'M A WINDOW NOW", 190, 200, 20, LIGHTGRAY);
-        EndDrawing();
-    }
-
-    CloseWindow();
-    return 0;
+    moirai::set_app(nullptr);
+    return return_value;
 }
