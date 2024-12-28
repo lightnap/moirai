@@ -1,10 +1,12 @@
 #include "c_application.hpp"
 
+#include "layers/c_visual_layer.hpp"
+
 #include <raylib/src/raylib.h>
 
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
-#include <iostream>
 
 namespace moirai
 {
@@ -29,23 +31,27 @@ namespace moirai
 
     void CApplication::init()
     {
-        std::cout << "[LIGHTSAYS ^. .^] HELLO WORLD \n";
-
-        InitWindow(800, 450, "my_first_window");
+        InitWindow(800, 450, "moirai");
         SetTargetFPS(60);
     }
 
     void CApplication::update()
     {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("[LIGHTSAYS ^. .^] WELP, I'M A WINDOW NOW", 190, 200, 20, LIGHTGRAY);
-        EndDrawing();
+        char window_title[32];
+        std::sprintf(window_title, "morirai - %.3i FPS", GetFPS());
+        SetWindowTitle(window_title);
+
+        _visual_layer.draw();
     }
 
     void CApplication::terminate()
     {
         CloseWindow();
+    }
+
+    CVisualLayer* CApplication::get_visual_layer()
+    {
+        return &_visual_layer;
     }
 
     CApplication* get_app()
