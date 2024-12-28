@@ -7,3 +7,7 @@
 # Dependencies
 /external/**
 !/external/CMakeLists.txt
+
+
+# Editor byproducts
+/.cache/

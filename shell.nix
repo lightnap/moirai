@@ -1,3 +1,4 @@
+# Nix shell script. Used by the nix package manager to load all libraries that the project uses.
 { pkgs ? import <nixpkgs> {} } :
   pkgs.mkShell {
     packages = with pkgs; [
