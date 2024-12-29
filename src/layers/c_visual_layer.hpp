@@ -1,9 +1,9 @@
-#ifndef MORIAI_SRC_LAYERS_C_VISUAL_LAYER_H_
-#define MORIAI_SRC_LAYERS_C_VISUAL_LAYER_H_
+#ifndef MORIAI_SRC_LAYERS_CVISUALLAYERHPP_
+#define MORIAI_SRC_LAYERS_CVISUALLAYERHPP_
 
 namespace moirai
 {
-    class CVisualLayer
+    class cVisualLayer
     {
       public:
         void draw();

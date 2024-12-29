@@ -1,28 +1,31 @@
-#ifndef MOIRAI_SRC_C_APPLICATION_H_
-#define MOIRAI_SRC_C_APPLICATION_H_
+#ifndef MOIRAI_SRC_CAPPLICATIONHPP_
+#define MOIRAI_SRC_CAPPLICATIONHPP_
 
+#include "layers/c_data_layer.hpp"
 #include "layers/c_visual_layer.hpp"
 
 #include <cstdint>
 
 namespace moirai
 {
-    class CApplication
+    class cApplication
     {
       public:
         int32_t       run();
-        CVisualLayer* get_visual_layer();
+        cVisualLayer* get_visual_layer();
+        cDataLayer*   get_data_layer();
 
       private:
         void init();
         void update();
         void terminate();
 
-        CVisualLayer _visual_layer;
+        cVisualLayer _visual_layer;
+        cDataLayer   _data_layer;
     };
 
-    CApplication* get_app();
-    void          set_app(CApplication* app);
+    cApplication* get_app();
+    void          set_app(cApplication* app);
 }
 
 #endif
