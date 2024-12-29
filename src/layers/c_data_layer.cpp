@@ -13,9 +13,7 @@ namespace moirai
 
     void cDataLayer::set_node(int32_t node_index, sNode* node)
     {
-        sNode* target_node {&_node_array[node_index]};
-        strcpy(target_node->title, node->title);
-        // TODO: If more data members are added to sNode, maybe do a copy constructor.
+        _node_array[node_index] = *node;
     }
 
     const sNode* cDataLayer::get_node(int32_t node_index)

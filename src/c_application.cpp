@@ -1,6 +1,7 @@
 #include "c_application.hpp"
 
 #include "layers/c_data_layer.hpp"
+#include "layers/c_logic_layer.hpp"
 #include "layers/c_visual_layer.hpp"
 
 #include <raylib/src/raylib.h>
@@ -56,7 +57,17 @@ namespace moirai
         std::sprintf(window_title, "morirai - %.3i FPS", GetFPS());
         SetWindowTitle(window_title);
 
-        _visual_layer.draw();
+        sNodePositionData node_position_data;
+        node_position_data.node_array = _data_layer.get_node_array();
+        node_position_data.node_count = _data_layer.get_node_count();
+
+        _logic_layer.update_node_position(&node_position_data);
+
+        sDrawData draw_data;
+        draw_data.node_array = _data_layer.get_node_array();
+        draw_data.node_count = _data_layer.get_node_count();
+
+        _visual_layer.draw(&draw_data);
     }
 
     void cApplication::terminate()
@@ -67,6 +78,11 @@ namespace moirai
     cVisualLayer* cApplication::get_visual_layer()
     {
         return &_visual_layer;
+    }
+
+    cLogicLayer* cApplication::get_logic_layer()
+    {
+        return &_logic_layer;
     }
 
     cDataLayer* cApplication::get_data_layer()

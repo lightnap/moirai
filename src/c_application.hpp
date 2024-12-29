@@ -2,6 +2,7 @@
 #define MOIRAI_SRC_CAPPLICATIONHPP_
 
 #include "layers/c_data_layer.hpp"
+#include "layers/c_logic_layer.hpp"
 #include "layers/c_visual_layer.hpp"
 
 #include <cstdint>
@@ -13,6 +14,7 @@ namespace moirai
       public:
         int32_t       run();
         cVisualLayer* get_visual_layer();
+        cLogicLayer*  get_logic_layer();
         cDataLayer*   get_data_layer();
 
       private:
@@ -21,6 +23,7 @@ namespace moirai
         void terminate();
 
         cVisualLayer _visual_layer;
+        cLogicLayer  _logic_layer;
         cDataLayer   _data_layer;
     };
 

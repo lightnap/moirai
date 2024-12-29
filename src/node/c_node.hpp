@@ -5,12 +5,16 @@
 
 namespace moirai
 {
-    static constexpr uint32_t MAX_NODE_TITLE_LENGTH {32U};
+    static constexpr uint32_t MAX_NODE_TITLE_LENGTH {64U};
 
     struct sNode
     {
       public:
-        char title[MAX_NODE_TITLE_LENGTH] {"/0"};
+        char    title[MAX_NODE_TITLE_LENGTH] {"/0"};
+        int32_t pos_x {0};
+        int32_t pos_y {0};
+        int32_t size_x {20};
+        int32_t size_y {20};
     };
 }
 
