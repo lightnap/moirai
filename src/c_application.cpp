@@ -47,7 +47,7 @@ namespace moirai
 
         int32_t second_node_id = _data_layer.add_node();
         sNode   second_node;
-        strcpy(second_node.title, "I am the secon node!");
+        strcpy(second_node.title, "I am the secon node!\nThis is second text");
         _data_layer.set_node(second_node_id, &second_node);
     }
 
@@ -61,7 +61,7 @@ namespace moirai
         node_position_data.node_array = _data_layer.get_node_array();
         node_position_data.node_count = _data_layer.get_node_count();
 
-        _logic_layer.update_node_position(&node_position_data);
+        _logic_layer.update_node_geometry(&node_position_data);
 
         sDrawData draw_data;
         draw_data.node_array = _data_layer.get_node_array();

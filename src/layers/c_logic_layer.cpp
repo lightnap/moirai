@@ -6,13 +6,14 @@
 
 namespace moirai
 {
-    void cLogicLayer::update_node_position(sNodePositionData* node_position_data)
+
+    void cLogicLayer::update_node_geometry(sNodePositionData* node_position_data)
     {
         for (uint32_t i {0U}; i < node_position_data->node_count; i++)
         {
             sNode* node {&node_position_data->node_array[i]};
-            node->pos_x = 190;
-            node->pos_y = 230 + 15 * i;
+            node->pos_x = i * (NODE_SIZE_X + HORIZONTAL_NODE_SEPARATION);
+            node->pos_y = 230;
         }
     }
 }

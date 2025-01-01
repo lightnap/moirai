@@ -16,7 +16,7 @@ namespace moirai
     class cLogicLayer
     {
       public:
-        void update_node_position(sNodePositionData* node_position_data);
+        void update_node_geometry(sNodePositionData* node_position_data);
     };
 }
 
