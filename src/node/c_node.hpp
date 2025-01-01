@@ -1,6 +1,8 @@
 #ifndef C_NODE_NODEHPP_
 #define C_NODE_NODEHPP_
 
+#include <raylib/src/raylib.h>
+
 #include <cstdint>
 
 namespace moirai
@@ -23,11 +25,22 @@ namespace moirai
     struct sNode
     {
       public:
+        enum class eStatus
+        {
+            open = 0,
+            in_progress,
+            done,
+        };
+
         char    title[MAX_NODE_TITLE_LENGTH] {"/0"};
         int32_t pos_x {0};
         int32_t pos_y {0};
         int32_t size_x {NODE_SIZE_X};
         int32_t size_y {NODE_SIZE_Y};
+
+        eStatus status {eStatus::open};
+
+        Color get_color();
     };
 }
 

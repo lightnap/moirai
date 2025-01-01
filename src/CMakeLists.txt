@@ -5,3 +5,4 @@ target_sources(moirai PRIVATE
 )
 
 add_subdirectory(layers)
+add_subdirectory(node)

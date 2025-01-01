@@ -43,11 +43,13 @@ namespace moirai
         int32_t first_node_id = _data_layer.add_node();
         sNode   first_node;
         strcpy(first_node.title, "Node number 1");
+        first_node.status = sNode::eStatus::done;
         _data_layer.set_node(first_node_id, &first_node);
 
         int32_t second_node_id = _data_layer.add_node();
         sNode   second_node;
         strcpy(second_node.title, "I am the secon node!\nThis is second text");
+        second_node.status = sNode::eStatus::open;
         _data_layer.set_node(second_node_id, &second_node);
     }
 
