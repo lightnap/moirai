@@ -5,6 +5,8 @@
 import argparse
 import pathlib
 import shutil
+import subprocess
+import sys
 
 
 def configure_argument_parser(parser):
@@ -15,7 +17,7 @@ def configure_argument_parser(parser):
         "-b", "--build", action="store_true", help="Build project, in debug mode"
     )
 
-    # TODO: Sone level of verbosity,
+    # TODO: Implement verbosity levels.
 
 
 def delete_all_directory_files(dir_path):
@@ -35,6 +37,8 @@ def delete_all_directory_files(dir_path):
                 # print("  Deleting directory", file_path) # TODO: Implement verborisy levels.
         except Exception as e:
             print("[DO][CLEAN]: Failed to delete %s. Reason: %s" % (file_path, e))
+            print("[DO] Terminating program...")
+            sys.exit(1)
 
 
 def perform_clean_action():
@@ -58,9 +62,32 @@ def perform_build_action():
 
     main_project_dir_path = pathlib.Path(__file__).resolve().parents[1]
     build_dir_path = main_project_dir_path.joinpath("build")
-    bin_dir_path = main_project_dir_path.joinpath("bin")
+    cmake_configure_result = subprocess.run(
+        [
+            "cmake",
+            "-S",
+            main_project_dir_path,
+            "-B",
+            build_dir_path,
+            "-G",
+            "Unix Makefiles",
+        ]
+    )
 
-    # TODO: The commands that build the project
+    if cmake_configure_result.returncode != 0:
+        print("[DO][BUILD]: Error during the cmake configuration phase.")
+        print("[DO] Terminating program...")
+        sys.exit(1)
+
+    cmake_build_result = subprocess.run(
+        ["cmake", "--build", build_dir_path, "--parallel", "10"]
+    )
+
+    if cmake_build_result.returncode != 0:
+        print("[DO][BUILD]: Error during the compilation/linking step.")
+        print("[DO] Terminating program...")
+        sys.exit(1)
+
     print("[DO][BUILD]: Finished!")
 
 
