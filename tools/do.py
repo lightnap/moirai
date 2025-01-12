@@ -54,9 +54,9 @@ def delete_directory_contents(dir_path):
                 shutil.rmtree(file_path)
                 # print("  Deleting directory", file_path) # TODO: Implement verborisy levels.
         except Exception as e:
-            print("[DO][CLEAN]: Failed to delete %s. Reason: %s" % (file_path, e))
-            print("[DO] Terminating program...")
-            sys.exit(1)
+            raise Exception(
+                "[DO][CLEAN]: Failed to delete %s. Reason: %s" % (file_path, e)
+            )
 
 
 def perform_clean_action():
@@ -101,18 +101,14 @@ def perform_build_action():
     )
 
     if cmake_configure_result.returncode != 0:
-        print("[DO][BUILD]: Error during the cmake configuration phase.")
-        print("[DO] Terminating program...")
-        sys.exit(1)
+        raise Exception("[DO][BUILD]: Error during the cmake configuration phase.")
 
     cmake_build_result = subprocess.run(
         ["cmake", "--build", build_dir_path, "--parallel", "10"]
     )
 
     if cmake_build_result.returncode != 0:
-        print("[DO][BUILD]: Error during the compilation/linking step.")
-        print("[DO] Terminating program...")
-        sys.exit(1)
+        raise Exception("[DO][BUILD]: Error during the compilation/linking step.")
 
     print("[DO][BUILD]: Finished!")
 
@@ -131,11 +127,17 @@ def main():
     if not args.clean and not args.build:
         parser.error("No action requested, please select one of the available actions")
 
-    if args.clean:
-        perform_clean_action()
+    try:
+        if args.clean:
+            perform_clean_action()
 
-    if args.build:
-        perform_build_action()
+        if args.build:
+            perform_build_action()
+
+    except Exception as e:
+        print(e)
+        print("[DO] Terminating program...")
+        sys.exit(1)
 
     print("[DO]: Finished!")
 
