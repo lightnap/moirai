@@ -1,6 +1,11 @@
 #! /usr/bin/env python3
-# This script is meant for building, dependency handling and cleaning build artifacts.
-# In general it handles all project actions whose commands are long.
+
+"""
+Morirai project manager.
+This script is meant for building, dependency handling and cleaning build artifacts.
+In general it handles all project actions whose commands are long.
+"""
+
 
 import argparse
 import pathlib
@@ -10,6 +15,13 @@ import sys
 
 
 def configure_argument_parser(parser):
+    """
+    Configures the input parser object \
+    with all the command line that the program takes.
+
+    param parser: the argparse.ArgumentParser object to configure.
+    """
+
     parser.add_argument(
         "-c", "--clean", action="store_true", help="Clean all build artifacts"
     )
@@ -20,9 +32,15 @@ def configure_argument_parser(parser):
     # TODO: Implement verbosity levels.
 
 
-def delete_all_directory_files(dir_path):
+def delete_directory_contents(dir_path):
+    """
+    Deletes all files and directories in the specified path.
+
+    param dir_path: libparth.Path object representing the parth of the directory \
+    whose contents we want to delete.
+    """
     print(
-        "[DO][CLEAN]: Deleting all files from directory [",
+        "[DO][CLEAN]: Deleting all content from directory [",
         dir_path.parent.name + "/" + dir_path.name,
         "]",
     )
@@ -42,6 +60,10 @@ def delete_all_directory_files(dir_path):
 
 
 def perform_clean_action():
+    """
+    Cleans all build artifacts from the project.
+    """
+
     print("[DO][CLEAN]: Cleaning all previous builds")
 
     main_project_dir_path = pathlib.Path(__file__).resolve().parents[1]
@@ -50,14 +72,18 @@ def perform_clean_action():
     external_dir_path = main_project_dir_path.joinpath("external")
     raylib_dir_path = external_dir_path.joinpath("raylib")
 
-    delete_all_directory_files(build_dir_path)
-    delete_all_directory_files(raylib_dir_path)
-    delete_all_directory_files(bin_dir_path)
+    delete_directory_contents(build_dir_path)
+    delete_directory_contents(raylib_dir_path)
+    delete_directory_contents(bin_dir_path)
 
     print("[DO][CLEAN]: Finished!")
 
 
 def perform_build_action():
+    """
+    Build the project.
+    """
+
     print("[DO][BUILD]: Building the moirai project")
 
     main_project_dir_path = pathlib.Path(__file__).resolve().parents[1]
@@ -92,6 +118,11 @@ def perform_build_action():
 
 
 def main():
+    """
+    Main function. Checks command lines arguments passed to the program \
+    and calls corresponding actions.
+    """
+
     print("[DO]: Invoked the project manager script")
     parser = argparse.ArgumentParser(description="Script to manage the moirai project.")
     configure_argument_parser(parser)
