@@ -6,9 +6,12 @@ This script is meant for building, dependency handling and cleaning build artifa
 In general it handles all project actions whose commands are long.
 """
 
+# TODO: Implement verbosity levels
+# TODO: Implement colours for different output messages.
 
 import argparse
 import pathlib
+import time
 import shutil
 import subprocess
 import sys
@@ -23,13 +26,60 @@ def configure_argument_parser(parser):
     """
 
     parser.add_argument(
-        "-c", "--clean", action="store_true", help="Clean all build artifacts"
+        "-c", "--clean", action="store_true", help="ACTION: Clean all build artifacts"
     )
     parser.add_argument(
-        "-b", "--build", action="store_true", help="Build project, in debug mode"
+        "-b",
+        "--build",
+        action="store_true",
+        help="ACTION: Build project, in debug mode",
+    )
+    parser.add_argument(
+        "--tests",
+        action="store_true",
+        help="MODIFIER: Specified actions will also apply to unit tests",
     )
 
     # TODO: Implement verbosity levels.
+
+
+def format_time(seconds):
+    """
+    Returns a string representing the given number of seconds in a human readable format.
+
+    pram seconds: a float value representing the number of seconds to format.
+    returns: A string containing the formatted time.
+    """
+
+    if abs(seconds) < 0.001:
+        return "0s"
+    elif abs(seconds) < 1.0:
+        # xxx ms
+        milliseconds = round(seconds * 1000.0, 0)
+        return "{:.0f}".format(milliseconds) + "ms"
+    elif abs(seconds) < 60.0:
+        # S s
+        return "{:.0f}".format(seconds) + "s"
+    elif abs(seconds) < 3600.0:
+        # M min SS s
+        return (
+            "{:.0f}".format(seconds // 60)
+            + "min "
+            + "{:02.0f}".format(seconds % 60)
+            + "s"
+        )
+    else:
+        # H h MM min SS s
+        return (
+            "{:.0f}".format(seconds // 3600)
+            + "h "
+            + "{:02.0f}".format((seconds // 60) % 60)
+            + "min "
+            + "{:02.0f}".format(seconds % 60)
+            + "s"
+        )
+
+    return "format_time error: could not format value = %s" % seconds
 
 
 def delete_directory_contents(dir_path):
@@ -59,35 +109,51 @@ def delete_directory_contents(dir_path):
             )
 
 
-def perform_clean_action():
+def perform_clean_action(tests):
     """
     Cleans all build artifacts from the project.
+
+    param tests: bool which indicates whether to clean the tests files or not.
     """
 
     print("[DO][CLEAN]: Cleaning all previous builds")
+    clean_action_start_time = time.time()
 
     main_project_dir_path = pathlib.Path(__file__).resolve().parents[1]
     build_dir_path = main_project_dir_path.joinpath("build")
     bin_dir_path = main_project_dir_path.joinpath("bin")
     external_dir_path = main_project_dir_path.joinpath("external")
     raylib_dir_path = external_dir_path.joinpath("raylib")
+    catch2_dir_path = external_dir_path.joinpath("catch2")
 
-    delete_directory_contents(build_dir_path)
     delete_directory_contents(raylib_dir_path)
+    if tests:
+        delete_directory_contents(catch2_dir_path)
+    delete_directory_contents(build_dir_path)
     delete_directory_contents(bin_dir_path)
 
-    print("[DO][CLEAN]: Finished!")
+    clean_action_finish_time = time.time() - clean_action_start_time
+    print("[DO][CLEAN]: Finished! Took:", format_time(clean_action_finish_time))
 
 
-def perform_build_action():
+def perform_build_action(tests):
     """
     Build the project.
+
+    param tests: bool that indicates whether to build the tests.
     """
 
     print("[DO][BUILD]: Building the moirai project")
+    build_action_start_time = time.time()
 
     main_project_dir_path = pathlib.Path(__file__).resolve().parents[1]
     build_dir_path = main_project_dir_path.joinpath("build")
+
+    if tests:
+        build_tests_param = "ON"
+    else:
+        build_tests_param = "OFF"
+
     cmake_configure_result = subprocess.run(
         [
             "cmake",
@@ -97,6 +163,7 @@ def perform_build_action():
             build_dir_path,
             "-G",
             "Unix Makefiles",
+            "-DMOIRAI_BUILD_TESTS:BOOL=" + build_tests_param,
         ]
     )
 
@@ -110,7 +177,8 @@ def perform_build_action():
     if cmake_build_result.returncode != 0:
         raise Exception("[DO][BUILD]: Error during the compilation/linking step.")
 
-    print("[DO][BUILD]: Finished!")
+    build_action_finish_time = time.time() - build_action_start_time
+    print("[DO][BUILD]: Finished! Took", format_time(build_action_finish_time))
 
 
 def main():
@@ -129,10 +197,10 @@ def main():
 
     try:
         if args.clean:
-            perform_clean_action()
+            perform_clean_action(args.tests)
 
         if args.build:
-            perform_build_action()
+            perform_build_action(args.tests)
 
     except Exception as e:
         print(e)
