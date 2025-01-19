@@ -12,7 +12,6 @@ namespace moirai
             {
                 return RED;
             }
-
             case eStatus::in_progress:
             {
                 return YELLOW;

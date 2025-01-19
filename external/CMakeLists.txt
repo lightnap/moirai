@@ -1,6 +1,7 @@
 include(FetchContent)
-set(RAYLIB_VERSION 5.5)
 
+# RAYLIB
+set(RAYLIB_VERSION 5.5)
 FetchContent_Declare(
   raylib DOWNLOAD_EXTRACT_TIMESTAMP OFF
   URL https://github.com/raysan5/raylib/archive/tags/${RAYLIB_VERSION}.tar.gz
@@ -17,9 +18,10 @@ if(NOT raylib_populated)
   FetchContent_MakeAvailable(raylib)
 endif()
 
-target_link_libraries(moirai raylib)
+target_link_libraries(moirai PRIVATE raylib)
 
 if(MOIRAI_BUILD_TESTS)
+  # CATCH2
   FetchContent_Declare(
     Catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
