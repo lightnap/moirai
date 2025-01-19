@@ -5,7 +5,7 @@
 
 #include <cstring>
 
-TEST_CASE("Data  layer")
+TEST_CASE("Data layer")
 {
     moirai::cDataLayer data_layer;
 

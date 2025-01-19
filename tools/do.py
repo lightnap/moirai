@@ -8,6 +8,7 @@ In general it handles all project actions whose commands are long.
 
 # TODO: Implement verbosity levels
 # TODO: Implement colours for different output messages.
+# TODO: Ensure build, bin, etc. folders exist and create them if they do not.
 
 import argparse
 import pathlib
