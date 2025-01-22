@@ -1,6 +1,8 @@
 #ifndef MORIAI_SRC_LAYERS_VISUALLAYERHPP_
 #define MORIAI_SRC_LAYERS_VISUALLAYERHPP_
 
+#include "raylib/src/raylib.h"
+
 #include <cstdint>
 
 namespace moirai
@@ -18,7 +20,11 @@ namespace moirai
     class cVisualLayer
     {
       public:
+        cVisualLayer();
         void draw(sDrawData* draw_data);
+
+      private:
+        Camera2D _camera;
     };
 }
 
