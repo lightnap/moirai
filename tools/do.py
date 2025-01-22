@@ -44,6 +44,45 @@ def configure_argument_parser(parser):
     # TODO: Implement verbosity levels.
 
 
+def create_required_project_directories():
+    """
+    Creates all directories required by the project that are not present by default (such as bin, build). \
+    Will not fail if directories already exist. \
+    Techinically not needed since cmake creates the directories if they are not found.
+    """
+
+    main_project_dir_path = pathlib.Path(__file__).resolve().parents[1]
+    build_dir_path = main_project_dir_path.joinpath("build")
+    bin_dir_path = main_project_dir_path.joinpath("bin")
+    external_dir_path = main_project_dir_path.joinpath("external")
+    raylib_dir_path = external_dir_path.joinpath("raylib")
+    catch2_dir_path = external_dir_path.joinpath("catch2")
+
+    try:
+        if not build_dir_path.exists():
+            print("[DO] PROJECT_ROOT/build directory does not exist. Creating...")
+            build_dir_path.mkdir()
+
+        if not bin_dir_path.exists():
+            print("[DO] PROJECT_ROOT/bin directory does not exist. Creating...")
+            bin_dir_path.mkdir()
+
+        if not raylib_dir_path.exists():
+            print(
+                "[DO] PROJECT_ROOT/external/raylib directory does not exist. Creating..."
+            )
+            raylib_dir_path.mkdir()
+
+        if not catch2_dir_path.exists():
+            print(
+                "[DO] PROJECT_ROOT/external/catch2 directory does not exist. Creating..."
+            )
+            catch2_dir_path.mkdir()
+
+    except Exception as e:
+        raise Exception("[DO]: Failed to create directories. Reason: %s" % e)
+
+
 def format_time(seconds):
     """
     Returns a string representing the given number of seconds in a human readable format.
@@ -197,6 +236,9 @@ def main():
         parser.error("No action requested, please select one of the available actions")
 
     try:
+
+        create_required_project_directories()
+
         if args.clean:
             perform_clean_action(args.tests)
 
