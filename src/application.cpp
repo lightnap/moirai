@@ -64,6 +64,7 @@ namespace moirai
 
         sNodePositionData node_position_data;
         node_position_data.node_array = _data_layer.get_node_array();
+        node_position_data.parents_array = _data_layer.get_parents_array();
         node_position_data.node_count = _data_layer.get_node_count();
         _logic_layer.update_node_geometry(&node_position_data);
 

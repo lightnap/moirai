@@ -24,6 +24,7 @@ namespace moirai
         void draw(sDrawData* draw_data);
 
       private:
+        void     update_camera();
         Camera2D _camera;
     };
 }

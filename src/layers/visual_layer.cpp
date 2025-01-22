@@ -28,21 +28,7 @@ namespace moirai
 
         SetTextLineSpacing(LINE_SPACING);
 
-        if (IsKeyDown(KEY_D))
-            _camera.target.x += CAMERA_SPEED;
-        else if (IsKeyDown(KEY_A))
-            _camera.target.x -= CAMERA_SPEED;
-
-        if (IsKeyDown(KEY_W))
-            _camera.target.y -= CAMERA_SPEED;
-        else if (IsKeyDown(KEY_S))
-            _camera.target.y += CAMERA_SPEED;
-
-        _camera.zoom += ((float)GetMouseWheelMove() * ZOOM_SPEED);
-        if (_camera.zoom > 3.0f)
-            _camera.zoom = 3.0f;
-        else if (_camera.zoom < 0.1f)
-            _camera.zoom = 0.1f;
+        update_camera();
 
         BeginMode2D(_camera);
         for (int32_t i {0}; i < draw_data->node_count; i++)
@@ -60,5 +46,24 @@ namespace moirai
         }
         EndMode2D();
         EndDrawing();
+    }
+
+    void cVisualLayer::update_camera()
+    {
+        if (IsKeyDown(KEY_D))
+            _camera.target.x += CAMERA_SPEED;
+        else if (IsKeyDown(KEY_A))
+            _camera.target.x -= CAMERA_SPEED;
+
+        if (IsKeyDown(KEY_W))
+            _camera.target.y -= CAMERA_SPEED;
+        else if (IsKeyDown(KEY_S))
+            _camera.target.y += CAMERA_SPEED;
+
+        _camera.zoom += ((float)GetMouseWheelMove() * ZOOM_SPEED);
+        if (_camera.zoom > 3.0f)
+            _camera.zoom = 3.0f;
+        else if (_camera.zoom < 0.1f)
+            _camera.zoom = 0.1f;
     }
 }
