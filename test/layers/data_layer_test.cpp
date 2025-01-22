@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include <layers/c_data_layer.hpp>
-#include <node/c_node.hpp>
+#include <layers/data_layer.hpp>
+#include <node/node.hpp>
 
 #include <cstring>
 

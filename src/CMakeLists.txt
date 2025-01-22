@@ -5,7 +5,10 @@ target_sources(
 
 target_sources(
   moirai
-  PRIVATE c_application.cpp c_application.hpp
+  PRIVATE application.cpp
+          application.hpp
+          debug.cpp
+          debug.hpp
 )
 
 add_subdirectory(layers)

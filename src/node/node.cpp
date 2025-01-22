@@ -1,4 +1,4 @@
-#include "c_node.hpp"
+#include "node.hpp"
 
 #include <raylib/src/raylib.h>
 

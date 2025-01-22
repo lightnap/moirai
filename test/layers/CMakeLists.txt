@@ -1,4 +1,4 @@
 target_sources(
   moirai_tests
-  PRIVATE c_data_layer_test.cpp
+  PRIVATE data_layer_test.cpp
 )

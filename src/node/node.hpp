@@ -1,5 +1,5 @@
-#ifndef C_NODE_NODEHPP_
-#define C_NODE_NODEHPP_
+#ifndef MOIRAI_SRC_NODE_NODEHPP_
+#define MOIRAI_SRC_NODE_NODEHPP_
 
 #include <raylib/src/raylib.h>
 

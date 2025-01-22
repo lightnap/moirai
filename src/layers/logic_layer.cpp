@@ -1,6 +1,6 @@
-#include "c_logic_layer.hpp"
+#include "logic_layer.hpp"
 
-#include "node/c_node.hpp"
+#include "node/node.hpp"
 
 #include <cstdint>
 

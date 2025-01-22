@@ -1,7 +1,7 @@
-#ifndef MOIRAI_SRC_LAYERS_CDATALAYERHPP_
-#define MOIRAI_SRC_LAYERS_CDATALAYERHPP_
+#ifndef MOIRAI_SRC_LAYERS_DATALAYERHPP_
+#define MOIRAI_SRC_LAYERS_DATALAYERHPP_
 
-#include "node/c_node.hpp"
+#include "node/node.hpp"
 
 #include <cstdint>
 
@@ -23,6 +23,7 @@ namespace moirai
         sNode   _node_array[MAX_NODES];
         int32_t _node_count {0};
     };
+
 }
 
 #endif

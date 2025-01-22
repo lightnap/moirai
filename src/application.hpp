@@ -1,9 +1,9 @@
-#ifndef MOIRAI_SRC_CAPPLICATIONHPP_
-#define MOIRAI_SRC_CAPPLICATIONHPP_
+#ifndef MOIRAI_SRC_APPLICATIONHPP_
+#define MOIRAI_SRC_APPLICATIONHPP_
 
-#include "layers/c_data_layer.hpp"
-#include "layers/c_logic_layer.hpp"
-#include "layers/c_visual_layer.hpp"
+#include "layers/data_layer.hpp"
+#include "layers/logic_layer.hpp"
+#include "layers/visual_layer.hpp"
 
 #include <cstdint>
 

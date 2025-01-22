@@ -1,4 +1,4 @@
 target_sources(
   moirai
-  PRIVATE c_node.cpp c_node.hpp
+  PRIVATE node.cpp node.hpp
 )

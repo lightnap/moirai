@@ -1,9 +1,9 @@
 target_sources(
   moirai
-  PRIVATE c_data_layer.cpp
-          c_data_layer.hpp
-          c_logic_layer.cpp
-          c_logic_layer.hpp
-          c_visual_layer.cpp
-          c_visual_layer.hpp
+  PRIVATE data_layer.cpp
+          data_layer.hpp
+          logic_layer.cpp
+          logic_layer.hpp
+          visual_layer.cpp
+          visual_layer.hpp
 )

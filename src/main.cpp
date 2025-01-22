@@ -1,4 +1,4 @@
-#include "c_application.hpp"
+#include "application.hpp"
 
 #include <raylib/src/raylib.h>
 
