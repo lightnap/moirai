@@ -10,8 +10,9 @@ namespace moirai
     struct sDrawData
     {
       public:
-        sNode*  node_array {nullptr};
-        int32_t node_count {0};
+        sNode*   node_array {nullptr};
+        int32_t* parents_array {nullptr};
+        int32_t  node_count {0};
     };
 
     class cVisualLayer

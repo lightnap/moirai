@@ -21,13 +21,20 @@ namespace moirai::debug
             print_node(&node_list[i]);
         }
 
-        // std::cout << "[DEBUG]: Printing all links\n";
-        //  print node graph, with just ids
+        std::cout << "[DEBUG]: Printing all parents links\n";
+        int32_t* parents_list {data_layer->get_parents_array()};
+
+        for (int32_t i {0}; i < data_layer->get_node_count(); i++)
+        {
+            std::cout << "[DEBUG]: Parent of node [" << i << "] is [" << parents_list[i] << "]\n";
+        }
+
+        // TODO: Would be nice to print the tree in the terminal, formatted as a tree.
     }
 
     void print_node(sNode* node)
     {
-        std::cout << "Title: " << node->title << "\n";
+        std::cout << "Title: \"" << node->title << "\"\n";
         std::cout << "Position: (" << node->pos_x << "," << node->pos_y << ")\n";
         std::cout << "Size: (" << node->size_x << "," << node->size_y << ")\n";
 
